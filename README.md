@@ -1,7 +1,3 @@
-Here's a draft for your README:
-
----
-
 # type-fetch
 
 **type-fetch** is a lightweight, flexible HTTP client library for making API requests in JavaScript/TypeScript. It provides a straightforward API with built-in support for retries, caching, and content type handling. Whether you're building a web application or a Node.js service, **type-fetch** is designed to simplify and streamline your HTTP requests.
