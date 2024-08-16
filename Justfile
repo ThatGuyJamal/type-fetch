@@ -12,3 +12,6 @@ publish:
 
 test:
     pnpm run test
+
+init:
+    pnpm install
