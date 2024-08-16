@@ -1,7 +1,7 @@
 /**
- * Interface defining the configuration options for the ZFetchClient.
+ * Interface defining the configuration options for the TFetchClient.
  */
-interface ZFetchClientOptions {
+interface TFetchClientOptions {
   /** Enable or disable debug logging. */
   debug?: boolean;
   retry: {
@@ -69,22 +69,22 @@ enum Time {
 }
 
 /**
- * ZFetchClient class provides a wrapper around the Fetch API with features
+ * TFetchClient class provides a wrapper around the Fetch API with features
  * such as retry logic, request caching, and configurable content types.
  *
  * @param opts Configuration options for the client.
  *
- * @returns An instance of ZFetchClient.
+ * @returns An instance of TFetchClient.
  */
-class ZFetchClient {
-  public readonly config: ZFetchClientOptions; // Client configuration
+class TFetchClient {
+  public readonly config: TFetchClientOptions; // Client configuration
   private cache: Map<string, CacheEntry<unknown>>; // In-memory cache for GET requests
 
   /**
-   * Creates an instance of ZFetchClient with optional configuration.
+   * Creates an instance of TFetchClient with optional configuration.
    * @param opts Configuration options for the client.
    */
-  public constructor(opts?: Partial<ZFetchClientOptions>) {
+  public constructor(opts?: Partial<TFetchClientOptions>) {
     this.config = {
       debug: opts?.debug ?? false,
       retry: {
@@ -362,5 +362,5 @@ class ZFetchClient {
   }
 }
 
-export { ZFetchClient };
-export type { ZFetchClientOptions };
+export { TFetchClient };
+export type { TFetchClientOptions };

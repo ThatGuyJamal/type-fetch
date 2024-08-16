@@ -8,7 +8,7 @@ purge:
     rm -rf dist node_modules pnpm-lock.yaml
 
 publish:
-    npm publish --access public
+    npm publish --access=public
 
 test:
     pnpm run test

@@ -2,9 +2,9 @@ Here's a draft for your README:
 
 ---
 
-# z-fetch
+# type-fetch
 
-**z-fetch** is a lightweight, flexible HTTP client library for making API requests in JavaScript/TypeScript. It provides a straightforward API with built-in support for retries, caching, and content type handling. Whether you're building a web application or a Node.js service, **z-fetch** is designed to simplify and streamline your HTTP requests.
+**type-fetch** is a lightweight, flexible HTTP client library for making API requests in JavaScript/TypeScript. It provides a straightforward API with built-in support for retries, caching, and content type handling. Whether you're building a web application or a Node.js service, **type-fetch** is designed to simplify and streamline your HTTP requests.
 
 ## Features
 
@@ -16,29 +16,29 @@ Here's a draft for your README:
 
 ## Installation
 
-Install **z-fetch**:
+Install **type-fetch**:
 
 ```bash
-pnpm add z-fetch
+pnpm add type-fetch
 ```
 
 or
 
 ```bash
-npm install z-fetch
+npm install type-fetch
 ```
 
 ## Usage
 
 ### Basic Usage
 
-Here's a basic example of how to use **z-fetch** for making HTTP requests:
+Here's a basic example of how to use **type-fetch** for making HTTP requests:
 
 ```typescript
-import { ZFetchClient } from "z-fetch";
+import { TFetchClient } from "type-fetch";
 
 // Create a new client instance with optional configuration
-const client = new ZFetchClient({
+const client = new TFetchClient({
   debug: true,
   retry: {
     count: 3,
@@ -108,9 +108,9 @@ const { data, error } = await client.delete(
 
 ### API
 
-#### `ZFetchClient`
+#### `TFetchClient`
 
-- `constructor(opts?: Partial<ZFetchClientOptions>)`: Creates a new instance with optional configuration.
+- `constructor(opts?: Partial<TFetchClientOptions>)`: Creates a new instance with optional configuration.
 
 - `get<T>(url: UrlOrString, headers?: HeadersInit): Promise<Result<T>>`: Makes a `GET` request.
 
@@ -122,7 +122,7 @@ const { data, error } = await client.delete(
 
 ## Testing
 
-To run tests for **z-fetch** simply run `pnpm test` in the root directory.
+To run tests for **type-fetch** simply run `pnpm test` in the root directory.
 
 ## Contributing
 
