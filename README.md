@@ -15,13 +15,13 @@
 Install **type-fetch**:
 
 ```bash
-pnpm add type-fetch
+pnpm add @thatguyjamal/type-fetch
 ```
 
 or
 
 ```bash
-npm install type-fetch
+npm install @thatguyjamal/type-fetch
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ npm install type-fetch
 Here's a basic example of how to use **type-fetch** for making HTTP requests:
 
 ```typescript
-import { TFetchClient } from "type-fetch";
+import { TFetchClient } from "@thatguyjamal/type-fetch";
 
 // Create a new client instance with optional configuration
 const client = new TFetchClient({
