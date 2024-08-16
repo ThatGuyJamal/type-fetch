@@ -1,0 +1,26 @@
+{
+	"name": "z-fetch",
+	"version": "0.1.0",
+	"description": "A simple wrapper around the fetch API",
+	"main": "dist/lib.js",
+	"types": "dist/lib.d.ts",
+	"files": ["dist", "README.md", "LICENSE"],
+	"scripts": {
+		"build": "tsc -p .",
+		"ts:init": "tsc --init",
+		"format": "biome format --write ./lib",
+		"lint": "biome lint --write ./lib",
+		"test": "jest"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@types/jest": "^29.5.12",
+		"@types/node": "^22.3.0",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.2.4",
+		"typescript": "^5.5.4"
+	}
+}

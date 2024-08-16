@@ -1,0 +1,8 @@
+node_modues/
+biome.json
+pnpm.lock.yaml
+tsconfig.json
+lib/
+test/
+*.test.ts
+*.log
