@@ -1,7 +1,7 @@
-import { ZFetchClient } from "../lib/lib";
+import { TFetchClient } from "../lib/lib";
 
-describe("ZFetchClient with JSON Placeholder API", () => {
-  const client = new ZFetchClient();
+describe("TFetchClient with JSON Placeholder API", () => {
+  const client = new TFetchClient();
 
   test("should perform a GET request", async () => {
     const result = await client.get<{

@@ -1,4 +1,4 @@
-import { ZFetchClient } from "../lib/lib";
+import { TFetchClient } from "../lib/lib";
 
 // Mock fetch function
 global.fetch = jest.fn(() =>
@@ -8,11 +8,11 @@ global.fetch = jest.fn(() =>
   })
 ) as jest.Mock;
 
-describe("ZFetchClient Caching", () => {
-  let client: ZFetchClient;
+describe("TFetchClient Caching", () => {
+  let client: TFetchClient;
 
   beforeEach(() => {
-    client = new ZFetchClient({
+    client = new TFetchClient({
       cache: {
         enabled: true,
         maxAge: 300000, // Cache responses for 5 minutes

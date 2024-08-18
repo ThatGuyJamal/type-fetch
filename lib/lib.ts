@@ -230,7 +230,7 @@ class TFetchClient {
 
         if (!response.ok) {
           const errorText = await response.text();
-          throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
+          return { data: null, error: new Error(errorText) };
         }
 
         const data = (await response.json()) as T;

@@ -1,4 +1,4 @@
-// import { ZFetchClient } from "../lib/lib";
+// import { TFetchClient } from "../lib/lib";
 
 // Mock fetch function to simulate retries
 global.fetch = jest.fn(() =>
@@ -7,14 +7,14 @@ global.fetch = jest.fn(() =>
 
 // todo - fix this test
 
-describe("ZFetchClient Retry Logic", () => {
+describe("TFetchClient Retry Logic", () => {
   it("just let this pass until we fix the bug...", () => {
     expect(1).toBe(1);
   });
 
-  //   let client: ZFetchClient;
+  //   let client: TFetchClient;
   //   beforeEach(() => {
-  //     client = new ZFetchClient({
+  //     client = new TFetchClient({
   //       retry: {
   //         count: 2,
   //         delay: 250,
