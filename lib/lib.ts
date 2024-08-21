@@ -5,18 +5,28 @@ interface TFetchClientOptions {
   /** Enable or disable debug logging. */
   debug?: boolean;
   retry: {
-    /** Number of retry attempts for failed requests. */
+    /** Number of retry attempts for failed requests. @default 0 */
     count?: number;
-    /** Delay between retry attempts in milliseconds. */
+    /** Delay between retry attempts in milliseconds. @default 1 second */
     delay?: number;
-    /** Callback function executed on each retry. */
+    /** Callback function executed on each retry. @default undefined */
     onRetry?: () => void;
   };
   cache: {
-    /** Enable or disable caching for GET requests. */
+    /** Enable or disable caching for GET requests. @default false */
     enabled?: boolean;
-    /** Maximum age for cache entries in milliseconds. */
+    /** Maximum age for cache entries in milliseconds. @default 5 minutes */
     maxAge?: number;
+    /**
+     * Maximum number of cache entries before a cleanup is triggered.
+     *
+     * It is important to know the larger this size the more memory the library will use.
+     * So keeping this small can help reduce memory usage on lower-end servers. When this
+     * limit is hit, a cleanup is triggered and the oldest entries are remove on the next cache save.
+     *
+     * @default 5,000
+     */
+    maxCachedEntries?: number;
   };
 }
 
@@ -30,7 +40,7 @@ type UrlOrString = string | URL;
  * @template T The type of the data returned on success.
  * @template E The type of the error returned on failure (default is Error).
  */
-type Result<T, E = Error> = { data: T | null; error: E | null };
+type Result<T, E = TFetchError> = { data: T | null; error: E | null };
 
 /**
  * Supported content types for requests.
@@ -55,8 +65,21 @@ interface CacheEntry<T> {
   timestamp: number;
 }
 
+/**
+ * An error class for TFetchClient.
+ * @param message The error message.
+ * @returns A new TFetchError instance.
+ */
+class TFetchError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "TFetchError";
+  }
+}
+
 const DEFAULT_RETRY_COUNT = 0;
 const DEFAULT_RETRY_DELAY = 1000;
+const DEFAULT_MAX_CACHED_ENTRIES = 5000;
 
 /**
  * Enumeration of time constants in milliseconds.
@@ -95,12 +118,14 @@ class TFetchClient {
       cache: {
         enabled: opts?.cache?.enabled ?? false,
         maxAge: opts?.cache?.maxAge ?? Time.Minute * 5,
+        maxCachedEntries:
+          opts?.cache?.maxCachedEntries ?? DEFAULT_MAX_CACHED_ENTRIES,
       },
     };
 
     this.cache = new Map();
 
-    this.debug("ZFetch Client initialized");
+    this.debug("TFetch Client initialized");
   }
 
   /**
@@ -230,7 +255,7 @@ class TFetchClient {
 
         if (!response.ok) {
           const errorText = await response.text();
-          return { data: null, error: new Error(errorText) };
+          return { data: null, error: new TFetchError(errorText) };
         }
 
         const data = (await response.json()) as T;
@@ -243,14 +268,14 @@ class TFetchClient {
           }
           await this.sleep(delay);
         } else {
-          return { data: null, error: error as Error };
+          return { data: null, error: error as TFetchError };
         }
       }
     }
 
     return {
       data: null,
-      error: new Error("Request failed after maximum retries"),
+      error: new TFetchError("Request failed after maximum retries"),
     };
   }
 
@@ -269,11 +294,16 @@ class TFetchClient {
 
   /**
    * Saves the response data to the cache with the specified key.
+   *
+   * This method also removes the oldest entries if the maxCachedEntries limit has been reached.
+   * This can be configured in the TFetchClientOptions.
+   *
    * @template T The type of the data being cached.
    * @param key The cache key under which the data will be stored.
    * @param data The data to be cached.
    */
   private saveToCache<T>(key: string, data: T): void {
+    this.cleanupCache();
     const timestamp = Date.now();
     this.cache.set(key, { data, timestamp });
   }
@@ -298,6 +328,35 @@ class TFetchClient {
     }
 
     return data as T;
+  }
+
+  /**
+   * Removes the oldest entries from the cache if the maxCachedEntries limit has been reached.
+   * @returns void
+   */
+  private cleanupCache(): void {
+    // Remove the oldest entry if the maxCachedEntries limit has been reached
+    if (
+      this.config.cache?.maxCachedEntries &&
+      this.config.cache?.maxCachedEntries === this.cache.size
+    ) {
+      // Make sure to remove the oldest entry first (25% of the entries)
+      const entries = [...this.cache.entries()].sort(
+        (a, b) => a[1].timestamp - b[1].timestamp
+      );
+
+      const entriesToRemove = Math.floor(entries.length * 0.25);
+
+      let deleted = 0;
+
+      for (let i = 0; i < entriesToRemove; i++) {
+        const entry = entries[i];
+        if (!entry) continue;
+        this.cache.delete(entry[0]);
+        deleted++;
+      }
+      this.debug(`Removed ${deleted} entries from cache cleanup.`);
+    }
   }
 
   /**

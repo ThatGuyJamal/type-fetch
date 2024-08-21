@@ -62,7 +62,7 @@ const { data, error } = await client.get<Post>(
 const { data, error } = await client.post(
   "https://jsonplaceholder.typicode.com/posts",
   {
-    type: "json",
+    type: "json", // other options: "text", "form", "blob"
     data: {
       title: "foo",
       body: "bar",
@@ -101,6 +101,7 @@ const { data, error } = await client.delete(
 - `cache` (object): Configures caching for `GET` requests.
   - `enabled` (boolean): Enables or disables caching.
   - `maxAge` (number): Maximum age of cache entries in milliseconds.
+  - `maxCachedEntries` (number): Maximum number of cached entries allowed.
 
 ### API
 

@@ -1,7 +1,11 @@
 {
 	"name": "@thatguyjamal/type-fetch",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"description": "A lightweight, flexible HTTP client library for making API requests in JavaScript/TypeScript.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thatguyjamal/type-fetch.git"
+	},
 	"main": "dist/lib.js",
 	"types": "dist/lib.d.ts",
 	"files": ["dist", "README.md", "LICENSE"],
@@ -12,7 +16,7 @@
 		"lint": "biome lint --write ./lib",
 		"test": "jest"
 	},
-	"keywords": [],
+	"keywords": ["http", "client", "typescript", "library", "request", "fetch"],
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
@@ -21,6 +25,7 @@
 		"@types/node": "^22.3.0",
 		"jest": "^29.7.0",
 		"ts-jest": "^29.2.4",
+		"ts-node": "^10.9.2",
 		"typescript": "^5.5.4"
 	}
 }

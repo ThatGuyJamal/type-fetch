@@ -15,7 +15,7 @@ describe("TFetchClient Caching", () => {
     client = new TFetchClient({
       cache: {
         enabled: true,
-        maxAge: 300000, // Cache responses for 5 minutes
+        maxAge: 300000,
       },
     });
   });
