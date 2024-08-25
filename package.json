@@ -6,14 +6,14 @@
 		"type": "git",
 		"url": "https://github.com/thatguyjamal/type-fetch.git"
 	},
-	"main": "dist/lib.js",
-	"types": "dist/lib.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"files": ["dist", "README.md", "LICENSE"],
 	"scripts": {
 		"build": "tsc -p .",
 		"ts:init": "tsc --init",
-		"format": "biome format --write ./lib",
-		"lint": "biome lint --write ./lib",
+		"format": "biome format --write .",
+		"lint": "biome lint --write .",
 		"test": "jest"
 	},
 	"keywords": ["http", "client", "typescript", "library", "request", "fetch"],
