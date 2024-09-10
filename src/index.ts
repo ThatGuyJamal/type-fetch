@@ -61,10 +61,10 @@ class TFetchClient {
 		url: UrlOrString,
 		headers?: HeadersInit,
 	): Promise<Result<T>> {
-		const cacheKey = this.getCacheKey(url, headers);
+		const ckey = this.GenerateCacheKey(url, headers);
 
 		if (this.config.cache?.enabled) {
-			const cachedResponse = this.getFromCache<T>(cacheKey);
+			const cachedResponse = this.getFromCache<T>(ckey);
 			if (cachedResponse) {
 				this.debug(`Cached response found for ${url}`);
 				return { data: cachedResponse, error: null };
@@ -81,8 +81,8 @@ class TFetchClient {
 
 		const result = await this.handleRequest<T>(request);
 
-		if (result.data && this.config.cache?.enabled) {
-			this.saveToCache(cacheKey, result.data);
+		if (this.config.cache?.enabled && result.data) {
+			this.saveToCache(ckey, result.data);
 		}
 
 		return result;
@@ -206,7 +206,7 @@ class TFetchClient {
 	 * @param headers Optional headers to include in the request.
 	 * @returns A string representing the cache key.
 	 */
-	private getCacheKey(url: UrlOrString, headers?: HeadersInit): string {
+	private GenerateCacheKey(url: UrlOrString, headers?: HeadersInit): string {
 		const headersString = headers
 			? JSON.stringify([...new Headers(headers).entries()])
 			: "";
