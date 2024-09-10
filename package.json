@@ -1,6 +1,6 @@
 {
 	"name": "@thatguyjamal/type-fetch",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "A lightweight, flexible HTTP client library for making API requests in JavaScript/TypeScript.",
 	"repository": {
 		"type": "git",
