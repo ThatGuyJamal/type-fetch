@@ -6,7 +6,7 @@
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
-		"ignore": [],
+		"ignore": ["dist", "node_modules"],
 		"attributePosition": "auto",
 		"indentStyle": "tab",
 		"indentWidth": 2,
@@ -15,6 +15,7 @@
 	},
 	"linter": {
 		"enabled": true,
+		"ignore": ["dist", "node_modules"],
 		"rules": {
 			"recommended": true,
 			"complexity": {
