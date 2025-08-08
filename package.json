@@ -24,7 +24,7 @@
 		"node": ">=14.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.1.4",
 		"@jest/types": "^29.6.3",
 		"@types/jest": "^29.5.12",
 		"@types/node": "22.13.14",
